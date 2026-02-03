@@ -1,10 +1,179 @@
-// Estilos "Rose Edition" para el Dashboard
+import React, { useState } from 'react';
+import { useProducts } from '../context/ProductContext';
+
+const Dashboard = () => {
+    const { products, setProducts } = useProducts();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // Estado para el formulario de nuevo producto
+    const [newProduct, setNewProduct] = useState({
+        name: '',
+        price: '',
+        image: ''
+    });
+
+    // Calcular estadísticas
+    const totalValue = products.reduce((acc, p) => acc + Number(p.price), 0);
+
+    // Manejadores (Handlers)
+    const handleLogout = () => {
+        window.location.hash = 'home';
+    };
+
+    const handleDelete = (id) => {
+        if (window.confirm('¿Seguro que quieres eliminar esta flor? 🥀')) {
+            setProducts(products.filter(p => p.id !== id));
+        }
+    };
+
+    const handleSave = () => {
+        if (!newProduct.name || !newProduct.price) return alert('Ponle nombre y precio 🌸');
+
+        const productToAdd = {
+            id: Date.now(),
+            name: newProduct.name,
+            price: Number(newProduct.price),
+            image: newProduct.image || 'https://images.unsplash.com/photo-1496062031456-07b8f162a322?auto=format&fit=crop&w=800&q=80', // Imagen por defecto
+            category: 'Flores'
+        };
+
+        setProducts([...products, productToAdd]);
+        setIsModalOpen(false);
+        setNewProduct({ name: '', price: '', image: '' }); // Limpiar formulario
+    };
+
+    return (
+        <div style={styles.container}>
+            {/* Navbar */}
+            <nav style={styles.navbar}>
+                <h2 style={styles.logo}>🌹 MasterShop Admin</h2>
+                <button style={styles.logoutBtn} onClick={handleLogout}>Cerrar Sesión</button>
+            </nav>
+
+            <div style={styles.content}>
+                {/* Encabezado */}
+                <div style={styles.headerTitle}>
+                    <div>
+                        <h1 style={{ color: '#9e475b', margin: 0 }}>Panel de Control</h1>
+                        <p style={{ color: '#888', margin: '5px 0' }}>Gestiona tu inventario con amor</p>
+                    </div>
+                    <button style={styles.addButton} onClick={() => setIsModalOpen(true)}>
+                        + Nuevo Producto
+                    </button>
+                </div>
+
+                {/* Tarjetas de Resumen (Grid) */}
+                <div style={styles.grid}>
+                    <div style={styles.card}>
+                        <h3 style={styles.cardTitle}>Total Productos</h3>
+                        <p style={styles.cardValue}>{products.length}</p>
+                    </div>
+                    <div style={styles.card}>
+                        <h3 style={styles.cardTitle}>Valor del Inventario</h3>
+                        <p style={styles.cardValue}>${totalValue.toLocaleString()}</p>
+                    </div>
+                    <div style={styles.card}>
+                        <h3 style={styles.cardTitle}>Estado</h3>
+                        <p style={styles.cardValue}><span style={{ fontSize: '1rem' }}>Activo 🟢</span></p>
+                    </div>
+                </div>
+
+                {/* Tabla de Productos */}
+                <div style={styles.section}>
+                    <div style={styles.tableContainer}>
+                        <table style={styles.table}>
+                            <thead>
+                                <tr>
+                                    <th style={styles.th}>Producto</th>
+                                    <th style={styles.th}>Precio</th>
+                                    <th style={styles.th}>Categoría</th>
+                                    <th style={styles.th}>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {products.map(product => (
+                                    <tr key={product.id}>
+                                        <td style={styles.td}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                                <img
+                                                    src={product.image}
+                                                    alt={product.name}
+                                                    style={styles.productImg}
+                                                    onError={(e) => e.target.src = 'https://via.placeholder.com/50'}
+                                                />
+                                                <span style={{ fontWeight: 'bold', color: '#555' }}>{product.name}</span>
+                                            </div>
+                                        </td>
+                                        <td style={styles.td}>${Number(product.price).toLocaleString()}</td>
+                                        <td style={styles.td}><span style={styles.badge}>{product.category || 'General'}</span></td>
+                                        <td style={styles.td}>
+                                            <button style={styles.deleteBtn} onClick={() => handleDelete(product.id)}>
+                                                🗑️ Borrar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            {/* Modal para Agregar */}
+            {isModalOpen && (
+                <div style={styles.modalOverlay}>
+                    <div style={styles.modalContent}>
+                        <h2 style={{ color: '#9e475b', marginTop: 0 }}>✨ Nueva Flor</h2>
+
+                        <div style={{ marginBottom: '15px' }}>
+                            <label style={styles.label}>Nombre del Producto</label>
+                            <input
+                                style={styles.input}
+                                placeholder="Ej. Ramo de Rosas Rojas"
+                                value={newProduct.name}
+                                onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+                            />
+                        </div>
+
+                        <div style={{ marginBottom: '15px' }}>
+                            <label style={styles.label}>Precio</label>
+                            <input
+                                type="number"
+                                style={styles.input}
+                                placeholder="Ej. 15000"
+                                value={newProduct.price}
+                                onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
+                            />
+                        </div>
+
+                        <div style={{ marginBottom: '25px' }}>
+                            <label style={styles.label}>URL de la Imagen</label>
+                            <input
+                                style={styles.input}
+                                placeholder="https://..."
+                                value={newProduct.image}
+                                onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })}
+                            />
+                        </div>
+
+                        <div style={{ display: 'flex', gap: '10px' }}>
+                            <button style={styles.cancelBtn} onClick={() => setIsModalOpen(false)}>Cancelar</button>
+                            <button style={styles.saveBtn} onClick={handleSave}>Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
+
+// --- TUS ESTILOS ROSE EDITION ---
 const styles = {
     container: {
         minHeight: '100vh',
-        backgroundColor: 'rgba(255, 255, 255, 0.9)', // Blanco semi-transparente para ver las flores de fondo
+        backgroundColor: '#fff', // Corregido para mejor contraste inicial
+        backgroundImage: 'linear-gradient(to bottom right, #fff0f5, #ffffff)', // Un degradado sutil
         fontFamily: "'Segoe UI', sans-serif",
-        backdropFilter: 'blur(10px)' // Efecto vidrio esmerilado
     },
     navbar: {
         display: 'flex', justifyContent: 'space-between', padding: '1rem 2rem',
