@@ -7,10 +7,10 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Account from './pages/Account';
 import Dashboard from './pages/Dashboard';
-import AdminLogin from './pages/AdminLogin';
-import CartDrawer from './components/CartDrawer';
-import Footer from './components/Footer'; // Import Footer
-import './App.css';
+import Login from './pages/Login';
+import Register from './pages/Register';
+
+// ... imports
 
 export default function App() {
   const [view, setView] = useState('home');
@@ -23,7 +23,8 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
 
-  const isAdmin = view === 'dashboard' || view === 'admin-login';
+  const isAdminView = view === 'dashboard';
+  const isAuthView = view === 'login' || view === 'register' || view === 'admin-login';
 
   return (
     <AuthProvider>
@@ -31,7 +32,7 @@ export default function App() {
         <OrderProvider>
           <CartProvider>
             <div className="master-app">
-              {!isAdmin && (
+              {!isAdminView && !isAuthView && (
                 <Navbar
                   onAccount={() => window.location.hash = 'account'}
                   onCart={() => setCartOpen(true)}
@@ -40,12 +41,17 @@ export default function App() {
               )}
 
               <main className="fade-in">
-                {view === 'dashboard' ? <Dashboard /> : view === 'admin-login' ? <AdminLogin /> : view === 'account' ? <Account /> : <Home />}
+                {view === 'dashboard' ? <Dashboard /> :
+                  view === 'login' ? <Login /> :
+                    view === 'register' ? <Register /> :
+                      view === 'admin-login' ? <Login /> : // Redirect old admin route to unified login
+                        view === 'account' ? <Account /> :
+                          <Home />}
               </main>
 
               <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
 
-              {!isAdmin && <Footer />}
+              {!isAdminView && !isAuthView && <Footer />}
             </div>
           </CartProvider>
         </OrderProvider>

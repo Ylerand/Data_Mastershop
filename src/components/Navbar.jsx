@@ -1,8 +1,10 @@
 import React from 'react'
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = ({ onCartClick, onAccount, onHome }) => {
     const { cart } = useCart();
+    const { user } = useAuth();
     const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
     return (
@@ -14,7 +16,13 @@ const Navbar = ({ onCartClick, onAccount, onHome }) => {
             <div style={styles.links}>
                 <a href="#home" style={styles.link}>Inicio</a>
                 <a href="#home" style={styles.link}>Colecciones</a>
-                <a href="#account" style={styles.link}>Mi Cuenta</a>
+
+                {user ? (
+                    <a href="#account" style={styles.link}>Mi Cuenta</a>
+                ) : (
+                    <a href="#login" style={styles.link}>Iniciar Sesión</a>
+                )}
+
                 <button onClick={onCartClick} style={styles.cartBtn}>
                     <span>Tu Carrito</span>
                     {cartCount > 0 && <span style={styles.badge}>{cartCount}</span>}
