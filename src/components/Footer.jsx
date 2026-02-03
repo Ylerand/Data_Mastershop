@@ -1,54 +1,48 @@
 import React from 'react';
+import { Phone, Mail, Instagram, Facebook, MapPin } from 'lucide-react';
 import './Footer.css';
 
-const Footer = () => {
+export default function Footer() {
     return (
-        <footer className="footer">
-            <div className="container footer-content">
-                <div className="footer-brand">
-                    <div className="logo">
-                        <span className="logo-main">Master</span>
-                        <span className="logo-sub">Shop</span>
-                    </div>
-                    <p className="footer-desc">
-                        Exclusividad y estilo para la mujer moderna. Tu tienda de confianza para moda, joyería y belleza.
-                    </p>
-                </div>
-
-                <div className="footer-links">
-                    <h4>Explorar</h4>
-                    <ul>
-                        <li><a href="#shop">Tienda</a></li>
-                        <li><a href="#new">Novedades</a></li>
-                        <li><a href="#about">Nuestra Historia</a></li>
-                    </ul>
-                </div>
-
-                <div className="footer-links">
-                    <h4>Ayuda</h4>
-                    <ul>
-                        <li><a href="#shipping">Envíos</a></li>
-                        <li><a href="#returns">Devoluciones</a></li>
-                        <li><a href="#faq">Preguntas Frecuentes</a></li>
-                    </ul>
-                </div>
-
-                <div className="footer-links">
-                    <h4>Contacto</h4>
-                    <p>Email: hola@mastershop.com</p>
-                    <p>WhatsApp: +56 9 3051 4851</p>
+        <footer className="footer-pro">
+            <div className="footer-content">
+                <div className="footer-col brand-col">
+                    <h2 className="footer-logo">Master<span>Shop</span></h2>
+                    <p>La experiencia definitiva en moda y lujo. Calidad premium garantizada en cada detalle.</p>
                     <div className="social-icons">
-                        {/* SVGs for Instagram, TikTok */}
+                        <a href="#"><Instagram size={20} /></a>
+                        <a href="#"><Facebook size={20} /></a>
+                    </div>
+                </div>
+
+                <div className="footer-col links-col">
+                    <h3>Explorar</h3>
+                    <a href="#home">Inicio</a>
+                    <a href="#home">Colecciones</a>
+                    <a href="#account">Mi Cuenta</a>
+                    <a href="#admin-login">Admin</a>
+                </div>
+
+                <div className="footer-col contact-col">
+                    <h3>Contacto Vip</h3>
+                    <div className="contact-item">
+                        <Phone size={18} className="icon-gold" />
+                        <span>Whatsapp: <a href="https://wa.me/56930514851" target="_blank" rel="noreferrer">+56 9 3051 4851</a></span>
+                    </div>
+                    <div className="contact-item">
+                        <Mail size={18} className="icon-gold" />
+                        <span>Email: <a href="mailto:em.ylerand@duocuc.cl">em.ylerand@duocuc.cl</a></span>
+                    </div>
+                    <div className="contact-item">
+                        <MapPin size={18} className="icon-gold" />
+                        <span>Santiago, Chile</span>
                     </div>
                 </div>
             </div>
+
             <div className="footer-bottom">
-                <div className="container">
-                    <p>&copy; 2026 MasterShop. Todos los derechos reservados.</p>
-                </div>
+                <p>&copy; {new Date().getFullYear()} MasterShop Pro. Todos los derechos reservados.</p>
             </div>
         </footer>
     );
-};
-
-export default Footer;
+}

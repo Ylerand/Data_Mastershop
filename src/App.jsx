@@ -9,6 +9,7 @@ import Account from './pages/Account';
 import Dashboard from './pages/Dashboard';
 import AdminLogin from './pages/AdminLogin';
 import CartDrawer from './components/CartDrawer';
+import Footer from './components/Footer'; // Import Footer
 import './App.css';
 
 export default function App() {
@@ -43,6 +44,8 @@ export default function App() {
               </main>
 
               <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
+
+              {!isAdmin && <Footer />}
             </div>
           </CartProvider>
         </OrderProvider>

@@ -6,25 +6,31 @@ import './Account.css';
 import { useAuth } from '../context/AuthContext'; // Import Auth
 
 export default function Account() {
-    const { orders, payOrder, payAllOrders } = useOrders(); // Destructure payAllOrders
-    const { user } = useAuth(); // Get user for Admin check
-    const [activeOrder, setActiveOrder] = useState(null);
+    const { orders, payOrder, payAllOrders } = useOrders();
+    const { user, logout } = useAuth(); // Destructure logout
+    const [activeOrder, setActiveOrder] = useState(null); // Can be order ID or 'ALL'
+    const [isPaymentModalOpen, setPaymentModalOpen] = useState(false);
 
     const pendingOrdersCount = orders.filter(o => o.payNow).length;
     const isAdmin = user?.email === 'admin@mastershop.com';
 
-    const handlePaymentSubmit = (e) => {
-        e.preventDefault();
-        payOrder(activeOrder);
-        setActiveOrder(null);
-        alert("¡Pago procesado con éxito! ✨");
+    const openPaymentModal = (orderId = 'ALL') => {
+        setActiveOrder(orderId);
+        setPaymentModalOpen(true);
     };
 
-    const handlePayAll = () => {
-        if (confirm(`¿Deseas pagar los ${pendingOrdersCount} pedidos pendientes?`)) {
-            payAllOrders();
-            alert("¡Todos los pedidos han sido pagados! 🚀");
-        }
+    const handlePaymentSubmit = (e) => {
+        e.preventDefault();
+        // Simulate processing delay
+        setTimeout(() => {
+            if (activeOrder === 'ALL') {
+                payAllOrders();
+            } else {
+                payOrder(activeOrder);
+            }
+            setPaymentModalOpen(false);
+            alert("¡Pago Aprobado! Gracias por su compra 💎");
+        }, 1500);
     };
 
     return (
@@ -37,9 +43,12 @@ export default function Account() {
                 <div className="account-actions">
                     {isAdmin && (
                         <a href="#dashboard" className="btn-admin-access">
-                            ⚙️ Panel Administrador
+                            ⚙️ Panel Admin
                         </a>
                     )}
+                    <button onClick={logout} className="btn-logout">
+                        Cerrar Sesión
+                    </button>
                 </div>
             </div>
 
@@ -47,7 +56,7 @@ export default function Account() {
                 <div className="section-title-row">
                     <h3>Mis Pedidos Recientes</h3>
                     {pendingOrdersCount > 0 && (
-                        <button className="btn-pay-all" onClick={handlePayAll}>
+                        <button className="btn-pay-all-luxury" onClick={() => openPaymentModal('ALL')}>
                             Pagar Todo ({pendingOrdersCount})
                         </button>
                     )}
@@ -66,7 +75,7 @@ export default function Account() {
                             <div className="order-footer">
                                 <span className="total">{order.total}</span>
                                 {order.payNow && (
-                                    <button className="btn-pay" onClick={() => setActiveOrder(order.id)}>Pagar con Tarjeta</button>
+                                    <button className="btn-pay-luxury" onClick={() => openPaymentModal(order.id)}>PAGAR CON TARJETA</button>
                                 )}
                             </div>
                         </div>
@@ -74,27 +83,42 @@ export default function Account() {
                 </div>
             </section>
 
-            {activeOrder && (
+            {isPaymentModalOpen && (
                 <div className="modal-overlay">
-                    <div className="pay-modal">
+                    <div className="pay-modal luxury-modal">
                         <div className="modal-top">
-                            <h3><Lock size={18} /> Pago Seguro</h3>
-                            <X className="close" onClick={() => setActiveOrder(null)} />
+                            <h3><CreditCard size={24} color="#d43f3f" /> Pasarela Segura</h3>
+                            <X className="close" onClick={() => setPaymentModalOpen(false)} />
                         </div>
+                        <p className="modal-amount">
+                            Total a Pagar: <span>{activeOrder === 'ALL' ? 'Todos los pendientes' : 'Pedido Actual'}</span>
+                        </p>
                         <form onSubmit={handlePaymentSubmit}>
+                            <div className="card-visual">
+                                {/* Visual placeholder for a card */}
+                                <div className="card-chip"></div>
+                                <div className="card-number-display">•••• •••• •••• 4242</div>
+                            </div>
+
                             <div className="card-input">
                                 <label>Nombre del Titular</label>
-                                <input type="text" placeholder="Como aparece en la tarjeta" required />
+                                <input type="text" placeholder="EJ: JUAN PEREZ" required />
                             </div>
                             <div className="card-input">
                                 <label>Número de Tarjeta</label>
-                                <input type="text" placeholder="0000 0000 0000 0000" maxLength="16" required />
+                                <input type="text" placeholder="0000 0000 0000 0000" maxLength="19" required />
                             </div>
                             <div className="flex-row">
-                                <input type="text" placeholder="MM/YY" maxLength="5" required />
-                                <input type="password" placeholder="CVC" maxLength="3" required />
+                                <div className="card-input">
+                                    <label>Vencimiento</label>
+                                    <input type="text" placeholder="MM/YY" maxLength="5" required />
+                                </div>
+                                <div className="card-input">
+                                    <label>CVC</label>
+                                    <input type="password" placeholder="123" maxLength="3" required />
+                                </div>
                             </div>
-                            <button type="submit" className="btn-confirm">FINALIZAR COMPRA</button>
+                            <button type="submit" className="btn-confirm-luxury">CONFIRMAR PAGO SEGURO</button>
                         </form>
                     </div>
                 </div>
