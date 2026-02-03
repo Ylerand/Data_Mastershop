@@ -7,9 +7,9 @@ import { ProductProvider } from './context/ProductContext' // <--- ¡AQUÍ ESTÁ
 // Importamos las páginas y componentes
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
+import Dashboard from './pages/Dashboard'
 import Account from './pages/Account'
 import AdminLogin from './pages/AdminLogin'
-import Dashboard from './pages/Dashboard'
 import Footer from './components/Footer'
 import CartDrawer from './components/CartDrawer'
 import './App.css'
