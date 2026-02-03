@@ -1,18 +1,23 @@
 import React from 'react'
+import { useCart } from '../context/CartContext';
 
-const Navbar = ({ cartCount, onCartClick }) => {
+const Navbar = ({ onCartClick, onAccount, onHome }) => {
+    const { cart } = useCart();
+    const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+
     return (
         <nav style={styles.nav}>
-            <h1 style={styles.logo}>
+            <h1 onClick={onHome} style={{ ...styles.logo, cursor: 'pointer' }}>
                 Master<span style={styles.logoSpan}>Shop</span> 🌸
             </h1>
 
             <div style={styles.links}>
                 <a href="#home" style={styles.link}>Inicio</a>
+                <a href="#home" style={styles.link}>Colecciones</a>
                 <a href="#account" style={styles.link}>Mi Cuenta</a>
                 <button onClick={onCartClick} style={styles.cartBtn}>
                     <span>Tu Carrito</span>
-                    <span style={styles.badge}>{cartCount}</span>
+                    {cartCount > 0 && <span style={styles.badge}>{cartCount}</span>}
                 </button>
             </div>
         </nav>

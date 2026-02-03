@@ -20,7 +20,6 @@ export default function Footer() {
                     <a href="#home">Inicio</a>
                     <a href="#home">Colecciones</a>
                     <a href="#account">Mi Cuenta</a>
-                    <a href="#admin-login">Admin</a>
                 </div>
 
                 <div className="footer-col contact-col">
