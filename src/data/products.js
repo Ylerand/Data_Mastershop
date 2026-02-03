@@ -57,7 +57,97 @@ export const products = [
         description: "Acabado aterciopelado de larga duración. No transfiere y mantiene la hidratación.",
         colors: ["Rose", "Crimson", "Mocha"],
         stock: true
+    },
+    {
+        id: 7,
+        name: "Bolso 'Velvet Night'",
+        category: "Exclusivos 2026",
+        price: 150.00,
+        image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=800",
+        description: "Bolso de terciopelo negro con herrajes dorados.",
+        stock: true
+    },
+    {
+        id: 8,
+        name: "Reloj 'Eternal Rose'",
+        category: "Exclusivos 2026",
+        price: 320.00,
+        image: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=800",
+        description: "Edición limitada. Baño de oro rosa con incrustaciones de nácar.",
+        stock: true
+    },
+    {
+        id: 9,
+        name: "Gafas 'Future View'",
+        category: "Accesorios",
+        price: 75.00,
+        image: "https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=800",
+        description: "Diseño vanguardista con protección UV400.",
+        stock: true
+    },
+    {
+        id: 10,
+        name: "Perfume 'Mystique' 100ml",
+        category: "Belleza",
+        price: 95.00,
+        image: "https://images.unsplash.com/photo-1594035910387-fea4779426e9?q=80&w=800",
+        description: "Notas de orquídea negra y vainilla. Una fragancia inolvidable.",
+        stock: true
+    },
+    {
+        id: 11,
+        name: "Tacones 'Red Carpet'",
+        category: "Ropa",
+        price: 110.00,
+        image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=800",
+        description: "Stilettos rojos de charol para dominar cualquier evento.",
+        stock: true
+    },
+    {
+        id: 12,
+        name: "Anillo 'Infinity'",
+        category: "Joyería",
+        price: 65.00,
+        image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=800",
+        description: "Diseño infinito en plata esterlina 925.",
+        stock: true
+    },
+    {
+        id: 13,
+        name: "Serum Ojos 'Revive'",
+        category: "Belleza",
+        price: 45.00,
+        image: "https://images.unsplash.com/photo-1576426863848-c2185fc6e941?q=80&w=800",
+        description: "Tratamiento intensivo con ácido hialurónico.",
+        stock: true
+    },
+    {
+        id: 14,
+        name: "Bufanda Cashmere",
+        category: "Ropa",
+        price: 85.00,
+        image: "https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?q=80&w=800",
+        description: "Suavidad extrema. 100% Cashmere importado.",
+        stock: true
+    },
+    {
+        id: 15,
+        name: "Billetera 'Classic User'",
+        category: "Accesorios",
+        price: 40.00,
+        image: "https://images.unsplash.com/photo-1627123424574-18bd75f3194c?q=80&w=800",
+        description: "Cuero vegano con múltiples compartimentos.",
+        stock: true
+    },
+    {
+        id: 16,
+        name: "Set Brochas Pro",
+        category: "Maquillaje",
+        price: 55.00,
+        image: "https://images.unsplash.com/photo-1596462502278-27bfdd403348?q=80&w=800",
+        description: "15 piezas de fibra sintética premium para un acabado profesional.",
+        stock: true
     }
 ];
 
-export const categories = ["Todas", "Ropa", "Joyería", "Maquillaje"];
+export const categories = ["Todas", "Ropa", "Joyería", "Maquillaje", "Accesorios", "Belleza", "Exclusivos 2026"];

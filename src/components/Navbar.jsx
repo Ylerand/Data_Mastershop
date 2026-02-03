@@ -8,10 +8,11 @@ const Navbar = ({ cartCount, onCartClick }) => {
             </h1>
 
             <div style={styles.links}>
-                <a href="#home" style={styles.link}>Tienda</a>
-                <a href="#account" style={styles.link}>Cuenta</a>
+                <a href="#home" style={styles.link}>Inicio</a>
+                <a href="#account" style={styles.link}>Mi Cuenta</a>
                 <button onClick={onCartClick} style={styles.cartBtn}>
-                    🛍️ Bolsa <span style={styles.badge}>{cartCount}</span>
+                    <span>Tu Carrito</span>
+                    <span style={styles.badge}>{cartCount}</span>
                 </button>
             </div>
         </nav>
@@ -23,55 +24,64 @@ const styles = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '1rem 2rem',
-        backgroundColor: 'rgba(255, 255, 255, 0.95)', // Blanco casi puro
+        padding: '1.2rem 4rem',
+        backgroundColor: 'rgba(255, 255, 255, 0.98)',
         position: 'sticky',
         top: 0,
-        zIndex: 100,
-        boxShadow: '0 2px 10px rgba(212, 130, 150, 0.2)' // Sombra rosada
+        zIndex: 1000,
+        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.03)',
+        backdropFilter: 'blur(10px)'
     },
     logo: {
         margin: 0,
-        fontSize: '1.8rem',
-        fontFamily: "'Playfair Display', serif", // Fuente elegante si la tienes, si no usa la default
-        color: '#4a4a4a',
+        fontSize: '2rem',
+        fontFamily: "'Playfair Display', serif",
+        color: '#2d2d2d',
+        letterSpacing: '-0.5px'
     },
     logoSpan: {
-        color: '#d48296', // Color Rosa Principal
-        fontStyle: 'italic'
+        color: '#d48296',
+        fontStyle: 'italic',
+        fontWeight: '400'
     },
     links: {
         display: 'flex',
         alignItems: 'center',
-        gap: '20px'
+        gap: '35px'
     },
     link: {
         textDecoration: 'none',
-        color: '#666',
-        fontWeight: '500',
-        fontSize: '1rem',
-        transition: 'color 0.3s'
+        color: '#555',
+        fontWeight: '600',
+        fontSize: '0.95rem',
+        textTransform: 'uppercase',
+        letterSpacing: '1px',
+        transition: 'color 0.3s',
     },
     cartBtn: {
-        backgroundColor: '#d48296',
+        backgroundColor: '#2d2d2d', // Negro elegante
         color: 'white',
         border: 'none',
-        padding: '10px 20px',
-        borderRadius: '25px',
+        padding: '12px 28px',
+        borderRadius: '50px', // Pill shape
         cursor: 'pointer',
-        fontSize: '1rem',
+        fontSize: '0.9rem',
         display: 'flex',
         alignItems: 'center',
-        gap: '8px',
-        boxShadow: '0 4px 10px rgba(212, 130, 150, 0.3)'
+        gap: '12px',
+        fontWeight: '600',
+        boxShadow: '0 8px 20px rgba(45, 45, 45, 0.2)',
+        transition: 'transform 0.2s'
     },
     badge: {
-        backgroundColor: 'white',
-        color: '#d48296',
+        backgroundColor: '#d48296',
+        color: 'white',
         borderRadius: '50%',
         padding: '2px 8px',
-        fontSize: '0.8rem',
-        fontWeight: 'bold'
+        fontSize: '0.75rem',
+        fontWeight: 'bold',
+        minWidth: '20px',
+        textAlign: 'center'
     }
 }
 

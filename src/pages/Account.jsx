@@ -3,9 +3,15 @@ import { useOrders } from '../context/OrderContext';
 import { CreditCard, Lock, X } from 'lucide-react';
 import './Account.css';
 
+import { useAuth } from '../context/AuthContext'; // Import Auth
+
 export default function Account() {
-    const { orders, payOrder } = useOrders();
+    const { orders, payOrder, payAllOrders } = useOrders(); // Destructure payAllOrders
+    const { user } = useAuth(); // Get user for Admin check
     const [activeOrder, setActiveOrder] = useState(null);
+
+    const pendingOrdersCount = orders.filter(o => o.payNow).length;
+    const isAdmin = user?.email === 'admin@mastershop.com';
 
     const handlePaymentSubmit = (e) => {
         e.preventDefault();
@@ -14,12 +20,41 @@ export default function Account() {
         alert("¡Pago procesado con éxito! ✨");
     };
 
+    const handlePayAll = () => {
+        if (confirm(`¿Deseas pagar los ${pendingOrdersCount} pedidos pendientes?`)) {
+            payAllOrders();
+            alert("¡Todos los pedidos han sido pagados! 🚀");
+        }
+    };
+
     return (
         <div className="account-view">
+            <div className="account-header">
+                <div>
+                    <h2>Mi Cuenta</h2>
+                    <p>Bienvenido, {user?.name || 'Cliente MasterShop'}</p>
+                </div>
+                <div className="account-actions">
+                    {isAdmin && (
+                        <a href="#dashboard" className="btn-admin-access">
+                            ⚙️ Panel Administrador
+                        </a>
+                    )}
+                </div>
+            </div>
+
             <section className="order-history">
-                <h2>Mis Pedidos</h2>
+                <div className="section-title-row">
+                    <h3>Mis Pedidos Recientes</h3>
+                    {pendingOrdersCount > 0 && (
+                        <button className="btn-pay-all" onClick={handlePayAll}>
+                            Pagar Todo ({pendingOrdersCount})
+                        </button>
+                    )}
+                </div>
+
                 <div className="order-list">
-                    {orders.map(order => (
+                    {orders.length === 0 ? <p className="no-orders">Aún no tienes pedidos.</p> : orders.map(order => (
                         <div key={order.id} className="order-card">
                             <div className="order-header">
                                 <span className="order-id">{order.id}</span>

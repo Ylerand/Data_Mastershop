@@ -36,8 +36,14 @@ export const OrderProvider = ({ children }) => {
         ));
     };
 
+    const payAllOrders = () => {
+        setOrders(orders.map(order =>
+            order.payNow ? { ...order, status: 'Pagado - Preparando Envío 📦', payNow: false } : order
+        ));
+    };
+
     return (
-        <OrderContext.Provider value={{ orders, createOrder, payOrder }}>
+        <OrderContext.Provider value={{ orders, createOrder, payOrder, payAllOrders }}>
             {children}
         </OrderContext.Provider>
     );

@@ -13,7 +13,12 @@ export default function Home() {
                 <div className="hero-text">
                     <h1 className="hero-title">Nueva Colección - <br /><span>Elegancia Atemporal</span></h1>
                     <p>Luxurolo e-commerce de la web appliinop</p>
-                    <button className="btn-primary">Comprar Ahora</button>
+                    <button
+                        className="btn-primary"
+                        onClick={() => document.querySelector('.product-showcase').scrollIntoView({ behavior: 'smooth' })}
+                    >
+                        Comprar Ahora
+                    </button>
                 </div>
                 <div className="hero-visual">
                     <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1000" alt="Fashion" />
@@ -30,7 +35,15 @@ export default function Home() {
                             <div className="item-details">
                                 <h4>{p.name}</h4>
                                 <p className="price">{p.price.toFixed(2)} €</p>
-                                <button onClick={() => addToCart(p)}>Añadir al carrito</button>
+                                <button
+                                    onClick={() => {
+                                        addToCart(p);
+                                        alert("¡Producto añadido con estilo! 👜");
+                                    }}
+                                    className="btn-add-cart"
+                                >
+                                    Añadir al carrito
+                                </button>
                             </div>
                         </div>
                     ))}
