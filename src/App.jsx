@@ -13,6 +13,7 @@ import CartDrawer from './components/CartDrawer';
 import Footer from './components/Footer';
 import './App.css';
 
+// MasterShop Expert Upgrade - Build Sync 2026-02-03
 export default function App() {
   const [view, setView] = useState('home');
   const [cartOpen, setCartOpen] = useState(false);
