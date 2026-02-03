@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
 // 1. Importamos los Contextos (La lógica global)
-import { CartProvider, useCart } from './context/CartContext'
 import { AuthProvider } from './context/AuthContext'
 import { ProductProvider } from './context/ProductContext'
+import { CartProvider, useCart } from './context/CartContext'
 
 // 2. Importamos Páginas y Componentes
 import Navbar from './components/Navbar'
@@ -12,8 +12,7 @@ import CartDrawer from './components/CartDrawer'
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
 import AdminLogin from './pages/AdminLogin'
-
-// Nota: He quitado 'Account' para evitar el error de archivo faltante.
+import Account from './pages/Account' // ✅ ¡Recuperado!
 
 // 3. Importamos Estilos
 import './App.css'
@@ -48,8 +47,8 @@ function AppContent() {
         return <AdminLogin />;
       case 'dashboard':
         return <Dashboard />;
-      // case 'account': <--- ELIMINADO TEMPORALMENTE
-      //   return <Account />;
+      case 'account':
+        return <Account />; // ✅ Ahora la página de Cuenta funciona
       case 'home':
       case 'shop':
       default:
@@ -58,6 +57,7 @@ function AppContent() {
   };
 
   // Ocultar Navbar y Footer en páginas de administración
+  // Nota: Account SÍ lleva Navbar, así que no lo incluimos aquí
   const isAdminPage = currentPage === 'admin-login' || currentPage === 'dashboard';
 
   return (
@@ -85,17 +85,17 @@ function AppContent() {
   )
 }
 
-// Componente Principal que envuelve todo con los Proveedores de datos
-function App() {
+// Componente Principal que envuelve todo
+export default function App() {
   return (
     <AuthProvider>
-      <CartProvider>
-        <ProductProvider>
+      {/* 🧠 MEJORA EXPERTA: ProductProvider envuelve al CartProvider */}
+      {/* Porque primero existen los productos, luego se agregan al carrito */}
+      <ProductProvider>
+        <CartProvider>
           <AppContent />
-        </ProductProvider>
-      </CartProvider>
+        </CartProvider>
+      </ProductProvider>
     </AuthProvider>
   )
 }
-
-export default App
