@@ -240,11 +240,11 @@
 }
 
 .btn-add-primary {
-    background-color: #d48296;
+    background-color: #1a1a1a;
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 8px;
+    border-radius: 4px;
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -254,7 +254,7 @@
 }
 
 .btn-add-primary:hover {
-    background-color: #c06c80;
+    background-color: #333;
 }
 
 /* Table */

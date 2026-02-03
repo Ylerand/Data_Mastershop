@@ -57,7 +57,7 @@ const styles = {
         letterSpacing: '-0.5px'
     },
     logoSpan: {
-        color: '#d4a000', // Gold/Yellow
+        color: '#d48296', // Returning to the previous soft rose gold for sophistication
         fontStyle: 'italic',
         fontWeight: '400'
     },
@@ -68,36 +68,36 @@ const styles = {
     },
     link: {
         textDecoration: 'none',
-        color: '#000',
+        color: '#555',
         fontWeight: '600',
-        fontSize: '0.95rem',
+        fontSize: '0.9rem',
         textTransform: 'uppercase',
         letterSpacing: '1px',
         transition: 'color 0.3s',
     },
     cartBtn: {
-        backgroundColor: '#000', // Black
-        color: '#FFD700', // Yellow text
-        border: '1px solid #FFD700',
+        backgroundColor: '#1a1a1a',
+        color: 'white',
+        border: 'none',
         padding: '12px 28px',
-        borderRadius: '50px', // Pill shape
+        borderRadius: '4px',
         cursor: 'pointer',
-        fontSize: '0.9rem',
+        fontSize: '0.85rem',
         display: 'flex',
         alignItems: 'center',
         gap: '12px',
         fontWeight: '600',
-        boxShadow: '0 8px 20px rgba(0,0,0,0.1)',
-        transition: 'transform 0.2s'
+        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+        transition: 'all 0.3s'
     },
     badge: {
-        backgroundColor: '#FFD700',
-        color: 'black',
+        backgroundColor: '#d48296',
+        color: 'white',
         borderRadius: '50%',
         padding: '2px 8px',
-        fontSize: '0.75rem',
+        fontSize: '0.7rem',
         fontWeight: 'bold',
-        minWidth: '20px',
+        minWidth: '18px',
         textAlign: 'center'
     }
 }

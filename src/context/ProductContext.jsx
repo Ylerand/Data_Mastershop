@@ -12,6 +12,17 @@ export const useProducts = () => {
 
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState(initialData);
+  const [categories, setCategories] = useState(['Ropa', 'Accesorios', 'Joyas', 'Calzado']);
+
+  const addCategory = (name) => {
+    if (!categories.includes(name)) {
+      setCategories([...categories, name]);
+    }
+  };
+
+  const deleteCategory = (name) => {
+    setCategories(categories.filter(c => c !== name));
+  };
 
   const addProduct = (newProduct) => {
     setProducts([...products, { ...newProduct, id: products.length + 1 }]);
@@ -22,7 +33,14 @@ export const ProductProvider = ({ children }) => {
   };
 
   return (
-    <ProductContext.Provider value={{ products, addProduct, deleteProduct }}>
+    <ProductContext.Provider value={{
+      products,
+      addProduct,
+      deleteProduct,
+      categories,
+      addCategory,
+      deleteCategory
+    }}>
       {children}
     </ProductContext.Provider>
   );
