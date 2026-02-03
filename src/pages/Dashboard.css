@@ -338,10 +338,73 @@
 @media (max-width: 900px) {
     .admin-sidebar {
         display: none;
-        /* Mobile handling handled simply for now */
     }
 
     .admin-main {
         margin-left: 0;
     }
+}
+
+/* Modals & New Elements */
+.admin-modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.admin-modal input,
+.admin-modal select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.btn-save {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.status-pill.warning {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #999;
 }

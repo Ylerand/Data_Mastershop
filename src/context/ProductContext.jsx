@@ -13,10 +13,16 @@ export const useProducts = () => {
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState(initialData);
 
-  // NOTA: Para que el Dashboard funcione como lo programamos, 
-  // necesitamos pasar 'setProducts' directamente en el value.
+  const addProduct = (newProduct) => {
+    setProducts([...products, { ...newProduct, id: products.length + 1 }]);
+  };
+
+  const deleteProduct = (id) => {
+    setProducts(products.filter(p => p.id !== id));
+  };
+
   return (
-    <ProductContext.Provider value={{ products, setProducts }}>
+    <ProductContext.Provider value={{ products, addProduct, deleteProduct }}>
       {children}
     </ProductContext.Provider>
   );
