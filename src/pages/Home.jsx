@@ -4,13 +4,17 @@ import { useCart } from '../context/CartContext';
 import './Home.css';
 
 export default function Home() {
-    const { products, categories } = useProducts(); // Use dynamic categories
+    const { products, categories, loading } = useProducts(); // Use dynamic categories
     const { addToCart } = useCart();
-    const [selectedCategory, setSelectedCategory] = useState('Todos');
+    const [selectedCategory, setSelectedCategory] = useState('Todas'); // Updated default
 
-    const filteredProducts = selectedCategory === 'Todos'
-        ? products
-        : products.filter(p => p.category === selectedCategory);
+    if (loading) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontSize: '1.5rem', fontWeight: 'bold' }}>
+                Cargando MasterShop... 💎
+            </div>
+        );
+    }
 
     return (
         <div className="home-container">

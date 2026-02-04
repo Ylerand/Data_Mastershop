@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Vestido Seda 'L'Élégance'",
+    "category": "Ropa",
+    "price": 89.99,
+    "image": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=800",
+    "description": "Vestido de seda natural con caída fluida. Elegancia atemporal para noches especiales.",
+    "colors": ["Nude", "Negro"],
+    "sizes": ["S", "M", "L"],
+    "stock": true
+  },
+  {
+    "name": "Blusa Lino 'Breeze'",
+    "category": "Ropa",
+    "price": 45.0,
+    "image": "https://images.unsplash.com/photo-1551163943-3f6a855d1153?q=80&w=800",
+    "description": "Blusa de lino 100% orgánico. Frescura y estilo para el día a día.",
+    "colors": ["Blanco", "Beige"],
+    "sizes": ["M", "L", "XL"],
+    "stock": true
+  },
+  {
+    "name": "Collar Oro 18K 'Minimal'",
+    "category": "Joyería",
+    "price": 120.0,
+    "image": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=800",
+    "description": "Cadena fina de oro de 18 quilates con dije minimalista en forma de gota.",
+    "stock": true
+  },
+  {
+    "name": "Perfume 'Mystique' 100ml",
+    "category": "Belleza",
+    "price": 95.0,
+    "image": "https://images.unsplash.com/photo-1594035910387-fea4779426e9?q=80&w=800",
+    "description": "Notas de orquídea negra y vainilla. Una fragancia inolvidable.",
+    "stock": true
+  }
+]

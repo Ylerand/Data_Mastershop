@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 // Asegúrate de que la ruta a tus datos sea correcta
 import { products as initialData } from '../data/products';
 
@@ -11,25 +11,65 @@ export const useProducts = () => {
 };
 
 export const ProductProvider = ({ children }) => {
-  const [products, setProducts] = useState(initialData);
-  const [categories, setCategories] = useState(['Ropa', 'Accesorios', 'Joyas', 'Calzado']);
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState(['Todas', 'Ropa', 'Accesorios', 'Joyería', 'Maquillaje', 'Belleza', 'Exclusivos 2026']);
+  const [loading, setLoading] = useState(true);
 
-  const addCategory = (name) => {
-    if (!categories.includes(name)) {
-      setCategories([...categories, name]);
+  // Fetch products from MongoDB
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/products');
+        const data = await res.json();
+        setProducts(data);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching products:', err);
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  const addProduct = async (newProduct) => {
+    try {
+      const token = localStorage.getItem('mastershop_token');
+      const res = await fetch('http://localhost:5000/api/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(newProduct)
+      });
+      const data = await res.json();
+      if (res.ok) setProducts(prev => [...prev, data]);
+    } catch (err) {
+      console.error('Error adding product:', err);
     }
   };
 
-  const deleteCategory = (name) => {
-    setCategories(categories.filter(c => c !== name));
+  const deleteProduct = async (id) => {
+    try {
+      const token = localStorage.getItem('mastershop_token');
+      const res = await fetch(`http://localhost:5000/api/products/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) setProducts(prev => prev.filter(p => p._id !== id));
+    } catch (err) {
+      console.error('Error deleting product:', err);
+    }
   };
 
-  const addProduct = (newProduct) => {
-    setProducts([...products, { ...newProduct, id: products.length + 1 }]);
+  const addCategory = (newCategory) => {
+    if (!categories.includes(newCategory)) {
+      setCategories([...categories, newCategory]);
+    }
   };
 
-  const deleteProduct = (id) => {
-    setProducts(products.filter(p => p.id !== id));
+  const deleteCategory = (categoryToDelete) => {
+    setCategories(categories.filter(c => c !== categoryToDelete));
   };
 
   return (
@@ -39,7 +79,8 @@ export const ProductProvider = ({ children }) => {
       deleteProduct,
       categories,
       addCategory,
-      deleteCategory
+      deleteCategory,
+      loading
     }}>
       {children}
     </ProductContext.Provider>
